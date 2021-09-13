@@ -2,15 +2,17 @@ using Inventor;
 using Microsoft.Win32;
 using System;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
-namespace addin04
+namespace InvAddin
 {
     /// <summary>
     /// This is the primary AddIn Server class that implements the ApplicationAddInServer interface
     /// that all Inventor AddIns are required to implement. The communication between Inventor and
     /// the AddIn is via the methods on this interface.
     /// </summary>
-    [GuidAttribute("7678b96c-1af1-4361-9e47-e4d4d209d94d")]
+    [ProgId("InvAddin.StandardAddinServer")]
+    [GuidAttribute("3287C9F4-44ED-4D40-81C9-B86AC28F7603")]
     public class StandardAddInServer : Inventor.ApplicationAddInServer
     {
 
@@ -32,6 +34,7 @@ namespace addin04
             // Initialize AddIn members.
             m_inventorApplication = addInSiteObject.Application;
 
+            MessageBox.Show("Hello!");
             // TODO: Add ApplicationAddInServer.Activate implementation.
             // e.g. event initialization, command creation etc.
         }

@@ -3,19 +3,21 @@ using Microsoft.Win32;
 using System;
 using System.Runtime.InteropServices;
 
-namespace addin04
+namespace DockableWindowSdk
 {
     /// <summary>
     /// This is the primary AddIn Server class that implements the ApplicationAddInServer interface
     /// that all Inventor AddIns are required to implement. The communication between Inventor and
     /// the AddIn is via the methods on this interface.
     /// </summary>
-
-    //[Guid("7678b96c-1af1-4361-9e47-e4d4d209d94x")]
-    public class StandardAddInServer : Inventor.ApplicationAddInServer
+    [ProgId("DockableWindowSdk.StandardAddinServer")]
+    [GuidAttribute("865b427e-2bd2-4322-978d-45d873e32c6c")]
+    public class StandardAddInServer : ApplicationAddInServer
     {
-        // Inventor application object.
-        private Inventor.Application m_inventorApplication;
+        private string ClientId = "{865b427e-2bd2-4322-978d-45d873e32c6c}";
+        private Application m_inventorApplication;
+
+        private DockableWindow dockableWindow;
 
         public StandardAddInServer()
         {
@@ -25,15 +27,14 @@ namespace addin04
 
         public void Activate(Inventor.ApplicationAddInSite addInSiteObject, bool firstTime)
         {
-            // This method is called by Inventor when it loads the addin.
-            // The AddInSiteObject provides access to the Inventor Application object.
-            // The FirstTime flag indicates if the addin is loaded for the first time.
-
             // Initialize AddIn members.
             m_inventorApplication = addInSiteObject.Application;
 
-            // TODO: Add ApplicationAddInServer.Activate implementation.
-            // e.g. event initialization, command creation etc.
+            //Create dock able window
+            dockableWindow = m_inventorApplication.UserInterfaceManager.DockableWindows.Add(ClientId,
+                "docable_window.StandardAddInServer.dockableWindow", "Example");
+            dockableWindow.ShowVisibilityCheckBox = true;
+
         }
 
         public void Deactivate()

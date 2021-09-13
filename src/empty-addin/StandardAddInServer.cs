@@ -19,6 +19,7 @@ namespace addin00
         public void Activate(ApplicationAddInSite addInSiteObject, bool firstTime)
         {
             m_inventorApplication = addInSiteObject.Application;
+            throw new SystemException("This is a breakdance!");
         }
 
         public void Deactivate()
