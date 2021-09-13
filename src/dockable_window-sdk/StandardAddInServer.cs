@@ -2,22 +2,22 @@ using Inventor;
 using Microsoft.Win32;
 using System;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
-namespace InvAddin
+namespace DockableWindowSdk
 {
     /// <summary>
     /// This is the primary AddIn Server class that implements the ApplicationAddInServer interface
     /// that all Inventor AddIns are required to implement. The communication between Inventor and
     /// the AddIn is via the methods on this interface.
     /// </summary>
-    [ProgId("InvAddin.StandardAddinServer")]
-    [GuidAttribute("3287C9F4-44ED-4D40-81C9-B86AC28F7603")]
-    public class StandardAddInServer : Inventor.ApplicationAddInServer
+    [ProgId("DockableWindowSdk.StandardAddinServer")]
+    [GuidAttribute("865b427e-2bd2-4322-978d-45d873e32c6c")]
+    public class StandardAddInServer : ApplicationAddInServer
     {
+        private string ClientId = "{865b427e-2bd2-4322-978d-45d873e32c6c}";
+        private Application m_inventorApplication;
 
-        // Inventor application object.
-        private Inventor.Application m_inventorApplication;
+        private DockableWindow dockableWindow;
 
         public StandardAddInServer()
         {
@@ -27,16 +27,14 @@ namespace InvAddin
 
         public void Activate(Inventor.ApplicationAddInSite addInSiteObject, bool firstTime)
         {
-            // This method is called by Inventor when it loads the addin.
-            // The AddInSiteObject provides access to the Inventor Application object.
-            // The FirstTime flag indicates if the addin is loaded for the first time.
-
             // Initialize AddIn members.
             m_inventorApplication = addInSiteObject.Application;
 
-            MessageBox.Show("Hello!");
-            // TODO: Add ApplicationAddInServer.Activate implementation.
-            // e.g. event initialization, command creation etc.
+            //Create dock able window
+            dockableWindow = m_inventorApplication.UserInterfaceManager.DockableWindows.Add(ClientId,
+                "docable_window.StandardAddInServer.dockableWindow", "Example");
+            dockableWindow.ShowVisibilityCheckBox = true;
+
         }
 
         public void Deactivate()

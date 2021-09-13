@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+      <RootNamespace>DockableWindowSdk</RootNamespace>
+	  <AssemblyName>DockableWindowSdk</AssemblyName>
+      <ApplicationIcon />
+      <Win32Resource />
+      <SignAssembly>false</SignAssembly>
+      <Authors>JordanRobot</Authors>
+      <Company>BBD</Company>
+      <Product>Dockable Window Sdk Example</Product>
+      <Copyright>(C) 2021</Copyright>
+	  <ApplicationManifest>addin.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if $(ConfigurationName)==Debug (&#xD;&#xA;XCopy &quot;$(TargetPath)&quot; &quot;%25AppData%25\Autodesk\ApplicationPlugins\$(TargetName)\&quot; /Y /R&#xD;&#xA;XCopy &quot;$(ProjectDir)DockableWindowSdk.addin&quot; &quot;%25AppData%25\Autodesk\ApplicationPlugins\$(TargetName)\&quot; /Y /R)" />
+  </Target>
+
+  <ItemGroup>
+    <Reference Include="Autodesk.Inventor.Interop">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Autodesk\Inventor 2021\Bin\Public Assemblies\Autodesk.Inventor.Interop.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
