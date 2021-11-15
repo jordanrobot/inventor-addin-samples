@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>AutoAddToGui</RootNamespace>
+    <ApplicationManifest>addin.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>auto-add-button-to-GUI</AssemblyName>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>addin author</Authors>
+    <Company></Company>
+    <Product>Inventor Addin Sample</Product>
+    <Description>Sample showing how to auto-add a button to a GUI in the ribbon</Description>
+    <Copyright></Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Autodesk.Inventor.Interop">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Autodesk\Inventor 2021\Bin\Public Assemblies\Autodesk.Inventor.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    
+	<Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+		<SpecificVersion>False</SpecificVersion>
+		<EmbedInteropTypes>False</EmbedInteropTypes>
+		<HintPath>..\..\..\..\..\..\..\..\Windows\assembly\GAC\stdole\7.0.3300.0__b03f5f7f11d50a3a\stdole.dll</HintPath>
+		<Private>False</Private>
+	</Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+	
+  <ItemGroup>
+    <None Update="auto-add-button-to-GUI.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="addin.manifest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if $(ConfigurationName)==Debug (&#xD;&#xA;XCopy &quot;$(TargetPath)&quot; &quot;%25AppData%25\Autodesk\ApplicationPlugins\$(TargetName)\&quot; /Y /R&#xD;&#xA;XCopy &quot;$(ProjectDir)auto-add-button-to-GUI.addin&quot; &quot;%25AppData%25\Autodesk\ApplicationPlugins\$(TargetName)\&quot; /Y /R)" />
+  </Target>
+</Project>

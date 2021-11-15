@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+
+  <assemblyIdentity name="auto_add_button_to_gui" version="1.0.0.0"></assemblyIdentity>
+
+  <clrClass clsid="{F90B26F4-4CFF-472E-91B8-725DB2245785}"
+			progid="auto-add-to-gui.StandardAddInServer"
+			threadingModel="Both"
+			name="auto-add-to-gui.StandardAddInServer"
+			runtimeVersion=""></clrClass>
+
+  <file name="auto-add-button-to-GUI.dll" hashalg="SHA1"></file>
+
+</assembly>
